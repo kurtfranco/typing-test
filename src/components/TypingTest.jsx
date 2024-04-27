@@ -84,43 +84,45 @@ const TypingTest = () => {
   };
 
   return (
-    <div className="container">
-      <div className="test">
-        <input
-          type="text"
-          className="input-field"
-          ref={inputRef}
-          onChange={handleChange}
-        />
-        {paragraph.split("").map((char, index) => (
-          <span
-            className={`char ${index === charIndex ? " active" : ""} ${
-              correctWrong[index]
-            }`}
-            ref={(e) => (charRefs.current[index] = e)}
-          >
-            {char}
-          </span>
-        ))}
+    <>
+      <div className="container">
+        <div className="test">
+          <input
+            type="text"
+            className="input-field"
+            ref={inputRef}
+            onChange={handleChange}
+          />
+          {paragraph.split("").map((char, index) => (
+            <span
+              className={`char ${index === charIndex ? " active" : ""} ${
+                correctWrong[index]
+              }`}
+              ref={(e) => (charRefs.current[index] = e)}
+            >
+              {char}
+            </span>
+          ))}
+        </div>
+        <div className="result">
+          <p>
+            Time Left: <strong>{timeLeft}</strong>
+          </p>
+          <p>
+            Mistakes: <strong>{mistakes}</strong>
+          </p>
+          <p>
+            WPM: <strong>{WPM}</strong>
+          </p>
+          <p>
+            CPM: <strong>{CPM}</strong>
+          </p>
+          <button className="btn" onClick={resetGame}>
+            Try Again
+          </button>
+        </div>
       </div>
-      <div className="result">
-        <p>
-          Time Left: <strong>{timeLeft}</strong>
-        </p>
-        <p>
-          Mistakes: <strong>{mistakes}</strong>
-        </p>
-        <p>
-          WPM: <strong>{WPM}</strong>
-        </p>
-        <p>
-          CPM: <strong>{CPM}</strong>
-        </p>
-        <button className="btn" onClick={resetGame}>
-          Try Again
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 
