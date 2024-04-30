@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
+import faker from "faker";
 
-const paragraph = `In a small town nestled between rolling hills, a young man named Ethan found solace in the wisps of vapor that danced around him.
+const paragraphs = `In a small town nestled between rolling hills, a young man named Ethan found solace in the wisps of vapor that danced around him.
      Drawn to the allure of flavored clouds and the promise of escape, he indulged in the habit of vaping, unaware of its grip tightening with each exhale. 
      As days turned into nights, Ethan's once vibrant spirit dulled beneath the haze, his dreams obscured by the lingering scent of artificial sweetness. 
      In the quiet corners of his mind, whispers of concern echoed, but the addiction whispered louder, drowning out the voices of reason. And so, amidst the fog of 
@@ -18,6 +19,23 @@ const TypingTest = () => {
   const inputRef = useRef(null);
   const charRefs = useRef([]);
   const [correctWrong, setCorrectWrong] = useState([]);
+  const [paragraph, setParagraph] = useState("");
+
+  const generateNewParagraph = () => {
+    const numberOfSentences = 20; // Adjust the number of sentences as needed
+    let generatedParagraph = "";
+    for (let i = 0; i < numberOfSentences; i++) {
+      generatedParagraph += faker.lorem.sentence();
+      if (i !== numberOfSentences - 1) {
+        generatedParagraph += " "; // Add space between sentences
+      }
+    }
+    setParagraph(generatedParagraph);
+  };
+
+  useEffect(() => {
+    generateNewParagraph();
+  }, []);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -58,6 +76,7 @@ const TypingTest = () => {
     setWPM(0);
     setCorrectWrong(Array(charRefs.current.length).fill(""));
     inputRef.current.focus();
+    generateNewParagraph();
   };
 
   const handleChange = (e) => {
@@ -104,6 +123,7 @@ const TypingTest = () => {
             </span>
           ))}
         </div>
+        <div class="spacer"></div>
         <div className="result">
           <p>
             Time Left: <strong>{timeLeft}</strong>
